@@ -14,10 +14,7 @@ class Helper
         exit;
     }
 
-    public static function old($field)
-    {
-        return $_POST[$field] ?? '';
-    }
+    
     public static function timeAgo($datetime)
     {
         $time = strtotime($datetime);

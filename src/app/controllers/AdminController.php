@@ -258,7 +258,7 @@ class AdminController implements controllers
             ->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    private function getLastBorrows(int $limit = 5): array
+    private function getLastBorrows(): array
     {
         $sql = "
             SELECT 
@@ -269,11 +269,9 @@ class AdminController implements controllers
             JOIN books bo ON bo.id = b.bookId
             JOIN users u ON u.id = b.readerId
             ORDER BY b.borrowDate DESC
-            LIMIT :limit
         ";
 
         $stmt = $this->connection->prepare($sql);
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -284,7 +282,7 @@ class AdminController implements controllers
     public function logoutextes(): void
     {
         session_destroy();
-        header("Location: /");
+        Helper::redirect("/login");
         exit;
     }
 }

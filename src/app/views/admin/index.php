@@ -47,7 +47,7 @@
             <div class="bg-white rounded-3xl border border-slate-200 overflow-hidden shadow-sm">
                 <div class="p-6 border-b border-slate-100 flex justify-between items-center">
                     <h3 class="font-bold text-slate-900 uppercase text-sm tracking-tight">Emprunts Récents</h3>
-                    <a href="/borrows" class="text-xs text-indigo-600 font-bold hover:underline">Voir tout</a>
+                    <a href="/emprunts" class="text-xs text-indigo-600 font-bold hover:underline">Voir tout</a>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left text-sm">
