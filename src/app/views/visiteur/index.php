@@ -72,20 +72,28 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
-                <div class="aspect-[3/4] bg-slate-200 rounded-xl mb-4 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400"
-                        class="w-full h-full object-cover">
-                </div>
-                <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded">AVAILABLE</span>
-                <h4 class="font-bold mt-2 text-slate-900">The Midnight Library</h4>
-                <p class="text-sm text-slate-500">Matt Haig • 2020</p>
-                <a href="#"
-                    class="block text-center mt-4 py-2 border-2 border-indigo-600 text-indigo-600 rounded-lg font-bold hover:bg-indigo-600 hover:text-white transition">Sign
-                    in to Borrow</a>
-            </div>
 
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <? foreach ($books as $book): ?>
+                <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 hover:shadow-md transition">
+                    <div class="aspect-[3/4] bg-slate-200 rounded-xl mb-4 overflow-hidden">
+                        <img src="<? echo $book->imagePath ?>" class="w-full h-full object-cover">
+                    </div>
+
+                    <? if ($book->status == "available"): ?>
+                        <span
+                            class="bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Available</span>
+                    <? else: ?>
+                        <span
+                            class="bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Unavailable</span>
+                    <? endif; ?>
+                    <h4 class="font-bold mt-2 text-slate-900"><? echo $book->title ?></h4>
+                    <p class="text-sm text-slate-500"><? echo $book->author ?> • <? echo $book->year ?> </p>
+                    <a href="/login"
+                        class="block text-center mt-4 py-2 border-2 border-indigo-600 text-indigo-600 rounded-lg font-bold hover:bg-indigo-600 hover:text-white transition">log
+                        in to Borrow</a>
+                </div>
+            <? endforeach ?>
         </div>
     </div>
 </section>

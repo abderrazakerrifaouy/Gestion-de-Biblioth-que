@@ -7,16 +7,13 @@ require_once __DIR__ . "./../Core/Database.php";
 
 class VisiteurController implements controllers
 {
+    
     private $database;
     private $connection;
     public function __construct()
     {
         $this->database = new Database();
         $this->connection = $this->database->connection();
-    }
-    public function index()
-    {
-        Helper::view("Visiteur/index");
     }
     public function getAllBooks()
     {
@@ -37,6 +34,11 @@ class VisiteurController implements controllers
         }
         return $books;
     }
+    public function index()
+    {
+        Helper::view("Visiteur/index" , ["books"=> $this->getAllBooks()]);
+    }
+    
     public function explore_catalog(){
         Helper::view("Visiteur/explore_catalog" , ["books"=> $this->getAllBooks()]);
     }

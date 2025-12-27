@@ -12,7 +12,6 @@ $books = $books ?? [];
             <div class="mt-8 max-w-2xl mx-auto relative">
                 <input type="text" placeholder="Search by title, author, or ISBN..."
                     class="w-full pl-12 pr-4 py-4 rounded-2xl border border-slate-200 focus:ring-4 focus:ring-indigo-50 shadow-sm outline-none transition">
-                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400 text-xl">🔍</span>
             </div>
         </div>
     </header>
@@ -48,12 +47,9 @@ $books = $books ?? [];
         <main class="flex-1">
 
             <div class="flex justify-between items-center mb-6">
-                <p class="text-slate-500 font-medium">Showing <span class="text-slate-900"><? count($books) ?></span>
+                <p class="text-slate-500 font-medium">Showing <span class="text-slate-900"><? echo count($books) ?></span>
                     books</p>
-                <select class="bg-transparent font-bold text-indigo-600 outline-none">
-                    <option>Sort by: Newest</option>
-                    <option>Sort by: Title A-Z</option>
-                </select>
+                
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 <?php if (count($books) > 0): ?>
@@ -64,8 +60,13 @@ $books = $books ?? [];
                             <div class="aspect-[3/4] bg-slate-100 relative overflow-hidden">
                                 <img src="<? echo $book->imagePath ?>" alt="Book Cover" class="w-full h-full object-cover">
                                 <div class="absolute top-3 right-3">
+                                    <? if ($book->status == "available"): ?>
                                     <span
                                         class="bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Available</span>
+                                    <? else: ?>
+                                    <span
+                                        class="bg-red-500 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Unavailable</span>
+                                    <? endif; ?>
                                 </div>
                             </div>
 
