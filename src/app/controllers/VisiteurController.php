@@ -4,6 +4,7 @@ require_once __DIR__ . "./../Core/Helper.php";
 require_once __DIR__ . "./../Core/Database.php";
 
 
+
 class VisiteurController implements controllers
 {
     private $database;
@@ -34,15 +35,16 @@ class VisiteurController implements controllers
             );
             $books[] = $book;
         }
-        return compact($books);
+        return $books;
+    }
+    public function explore_catalog(){
+        Helper::view("Visiteur/explore_catalog" , ["books"=> $this->getAllBooks()]);
     }
     public function how_it_works(){
         
         Helper::view("Visiteur/how_it_works" );
     }
-    public function explore_catalog(){
-        Helper::view("Visiteur/explore_catalog" , ["books"=> $this->getAllBooks()]);
-    }
+    
     public function login()
     {
         Helper::view("Visiteur/login");

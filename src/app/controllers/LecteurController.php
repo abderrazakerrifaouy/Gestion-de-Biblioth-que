@@ -16,7 +16,7 @@ class LecteurController implements controllers
     {
         $id_user = $_SESSION['user']->id ?? -1;
         $query = $this->connection->prepare(
-         "   SELECT e.* , DATEDIFF(b.returnDate, CURDATE()) AS days_left FROM borrows b 
+         "   SELECT e.image_path , e.title , e.author , b.borrowDate , DATEDIFF(b.returnDate, CURDATE()) AS days_left FROM borrows b 
                     join users u on  b.readerId = u.id 
                     join books e on b.bookId = e.id 
                     WHERE u.id = $id_user 

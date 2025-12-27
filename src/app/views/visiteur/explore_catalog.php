@@ -55,15 +55,14 @@ $books = $books ?? [];
                     <option>Sort by: Title A-Z</option>
                 </select>
             </div>
-            <?php if (count($books) > 0): ?>
-                <?php foreach ($books as $book): ?>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <?php if (count($books) > 0): ?>
+                    <?php foreach ($books as $book): ?>
 
                         <div
                             class="group bg-white rounded-2xl border border-slate-200 overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition duration-300">
                             <div class="aspect-[3/4] bg-slate-100 relative overflow-hidden">
-                                <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&q=80"
-                                    alt="Book Cover" class="w-full h-full object-cover">
+                                <img src="<? echo $book->imagePath ?>" alt="Book Cover" class="w-full h-full object-cover">
                                 <div class="absolute top-3 right-3">
                                     <span
                                         class="bg-green-500 text-white text-[10px] font-black px-2 py-1 rounded uppercase tracking-tighter">Available</span>
@@ -71,12 +70,10 @@ $books = $books ?? [];
                             </div>
 
                             <div class="p-5">
-                                <p class="text-[10px] font-bold text-indigo-600 uppercase mb-1">Classic Fiction</p>
-                                <h4 class="font-bold text-slate-900 leading-tight group-hover:text-indigo-600 transition">The
-                                    Art of
-                                    Resilience</h4>
-                                <p class="text-sm text-slate-500 mt-1">Marcus Aurelius</p>
-                                <p class="text-xs text-slate-400 mt-2 italic border-t border-slate-50 pt-2">Published: 2021</p>
+                                <!-- <p class="text-[10px] font-bold text-indigo-600 uppercase mb-1">Classic Fiction</p> -->
+                                <h4 class="font-bold text-slate-900 leading-tight group-hover:text-indigo-600 transition"><? echo $book->title ?></h4>
+                                <p class="text-sm text-slate-500 mt-1"><? echo $book->author ?></p>
+                                <p class="text-xs text-slate-400 mt-2 italic border-t border-slate-50 pt-2">Published: <? echo $book->year ?></p>
 
                                 <a href="/login"
                                     class="mt-4 block w-full py-3 text-center bg-slate-900 text-white rounded-xl font-bold text-sm hover:bg-indigo-600 transition shadow-lg shadow-slate-100">

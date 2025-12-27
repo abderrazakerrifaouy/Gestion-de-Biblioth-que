@@ -3,6 +3,8 @@ require_once __DIR__."./../app/Core/Router.php";
 require_once __DIR__."./../app/routes/wep.php";
 require_once __DIR__ . "./../app/models/Admin.php";
 require_once __DIR__ . "./../app/models/Lecteur.php";
+require_once __DIR__ . "./../app/models/Book.php";
+
 session_start(); 
 $router = new Router();
 wep($router);

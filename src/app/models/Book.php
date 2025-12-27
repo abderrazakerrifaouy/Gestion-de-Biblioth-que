@@ -23,4 +23,8 @@ class Book
         $this->status = $status;
         $this->imagePath = $imagePath;
     }
+
+    public function __get($name){
+        return $this->$name;
+    }
 }

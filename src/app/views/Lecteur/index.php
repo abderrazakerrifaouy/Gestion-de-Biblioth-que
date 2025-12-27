@@ -1,13 +1,11 @@
 <div class="bg-slate-50 text-slate-900 font-sans">
 
-    
-
     <header class="bg-white py-10 border-b border-slate-100">
         <div class="container mx-auto px-4">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div>
-                    <h1 class="text-3xl font-extrabold text-slate-900">Welcome back, Alex! 👋</h1>
-                    <p class="text-slate-500 mt-1">You have <span class="text-indigo-600 font-bold">2 books</span> currently borrowed.</p>
+                    <h1 class="text-3xl font-extrabold text-slate-9004">Welcome back, Alex! 👋</h1>
+                    <p class="text-slate-500 mt-1">You have <span class="text-indigo-600 font-bold"><? echo count($books) ?> books</span> currently borrowed.</p>
                 </div>
                 <div class="mt-6 md:mt-0 flex gap-3">
                     <a href="/books" class="bg-indigo-600 text-white px-6 py-3 rounded-xl font-bold shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition">Browse New Books</a>
@@ -27,7 +25,7 @@
                     </h2>
                     
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex gap-4">
+                        <!-- <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex gap-4">
                             <div class="w-24 h-32 bg-slate-200 rounded-lg shrink-0"></div>
                             <div class="flex flex-col justify-between py-1">
                                 <div>
@@ -39,7 +37,25 @@
                                     <p class="text-sm font-bold text-amber-600">Dec 30, 2024</p>
                                 </div>
                             </div>
+                        </div> -->
+                        <?php foreach($books as $book): ?>
+
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex gap-4">
+                            <div class="w-24 h-32 bg-slate-200 rounded-lg shrink-0">
+                                <img src="<? echo $book['image_path'] ?>" alt="">
+                            </div>
+                            <div class="flex flex-col justify-between py-1">
+                                <div>
+                                    <h4 class="font-bold text-slate-900 leading-tight"><? echo $book['title'] ?></h4>
+                                    <p class="text-xs text-slate-500"><? echo $book['author'] ?></p>
+                                </div>
+                                <div class="mt-4">
+                                    <p class="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Due Date</p>
+                                    <p class="text-sm font-bold <?php if($book['borrowDate'] > 3){echo " text-indigo-600 "; }else{ echo " text-amber-600 ";}?> "><? echo $book['borrowDate'] ?></p>
+                                </div>
+                            </div>
                         </div>
+                        <?php endforeach?>
 
                         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex gap-4">
                             <div class="w-24 h-32 bg-slate-200 rounded-lg shrink-0"></div>
@@ -69,6 +85,11 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
+                                <tr>
+                                    <td class="px-6 py-4 font-medium italic">The Great Gatsby</td>
+                                    <td class="px-6 py-4 text-slate-500">Nov 15, 2024</td>
+                                    <td class="px-6 py-4"><span class="text-green-600 font-bold">Returned</span></td>
+                                </tr>
                                 <tr>
                                     <td class="px-6 py-4 font-medium italic">The Great Gatsby</td>
                                     <td class="px-6 py-4 text-slate-500">Nov 15, 2024</td>
