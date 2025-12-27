@@ -13,47 +13,38 @@
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <? foreach ($books as $book): ?>
                 <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
                     <div class="flex gap-5">
                         <div class="w-24 h-32 bg-slate-100 rounded-xl overflow-hidden shrink-0">
-                            <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover">
+                            <img src="<? echo $book['image_path'] ?>" class="w-full h-full object-cover">
                         </div>
                         <div class="flex flex-col justify-between">
                             <div>
-                                <h3 class="font-bold text-slate-900 leading-tight">L'Étranger</h3>
-                                <p class="text-xs text-slate-500 italic">Albert Camus</p>
+                                <h3 class="font-bold text-slate-900 leading-tight"><? echo $book['title'] ?></h3>
+                                <p class="text-xs text-slate-500 italic"><? echo $book['author'] ?></p>
                             </div>
+                            <? if ($book['days_left'] > 3): ?>
                             <div class="bg-indigo-50 p-2 rounded-lg">
                                 <p class="text-[10px] text-indigo-400 font-bold uppercase">Date de retour prévue</p>
-                                <p class="text-sm font-black text-indigo-700">14 Janvier 2025</p>
+                                <p class="text-sm font-black text-indigo-700"><? echo $book['return_date'] ?></p>
                             </div>
+                            <? else: ?>
+                                <div class="bg-amber-50 p-2 rounded-lg border border-amber-100">
+                                <p class="text-[10px] text-amber-500 font-bold uppercase">Attention</p>
+                                <p class="text-sm font-black text-amber-700">À rendre <? echo $book['days_left'] ?> Day</p>
+                            </div>
+                            <? endif; ?>
                         </div>
                     </div>
+                    <form action="/return_borrows" method="post">
+                        <input type="hidden" name="bookId" value="<? echo $book['id'] ?>">
                     <button class="w-full mt-4 py-2 border-2 border-slate-100 rounded-xl text-sm font-bold text-slate-600 hover:bg-slate-50 transition">
                         Prolonger l'emprunt
                     </button>
+                    </form>
                 </div>
-
-                <div class="bg-white rounded-3xl p-5 border border-slate-200 shadow-sm hover:shadow-md transition">
-                    <div class="flex gap-5">
-                        <div class="w-24 h-32 bg-slate-100 rounded-xl overflow-hidden shrink-0">
-                            <img src="https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=200" class="w-full h-full object-cover">
-                        </div>
-                        <div class="flex flex-col justify-between">
-                            <div>
-                                <h3 class="font-bold text-slate-900 leading-tight">Le Petit Prince</h3>
-                                <p class="text-xs text-slate-500 italic">Saint-Exupéry</p>
-                            </div>
-                            <div class="bg-amber-50 p-2 rounded-lg border border-amber-100">
-                                <p class="text-[10px] text-amber-500 font-bold uppercase">Attention</p>
-                                <p class="text-sm font-black text-amber-700">À rendre demain</p>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="w-full mt-4 py-2 bg-slate-900 text-white rounded-xl text-sm font-bold hover:bg-slate-800 transition shadow-lg shadow-slate-200">
-                        Marquer comme rendu
-                    </button>
-                </div>
+                <? endforeach; ?>
             </div>
         </section>
 
@@ -71,24 +62,21 @@
                             <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Auteur</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Emprunté le</th>
                             <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest">Rendu le</th>
-                            <th class="px-6 py-4 text-xs font-bold text-slate-400 uppercase tracking-widest text-center">Note</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-slate-100">
+                        <? foreach ($history as $book): ?>
                         <tr class="hover:bg-slate-50/50 transition">
-                            <td class="px-6 py-4 font-bold text-slate-700">1984</td>
-                            <td class="px-6 py-4 text-slate-500 text-sm">George Orwell</td>
-                            <td class="px-6 py-4 text-slate-500 text-sm">12 Oct. 2024</td>
-                            <td class="px-6 py-4 text-emerald-600 text-sm font-semibold">26 Oct. 2024</td>
-                            <td class="px-6 py-4 text-center">⭐⭐⭐⭐⭐</td>
+                            <td class="px-6 py-4 font-bold text-slate-700"><?= $book['title'] ?></td>
+                            <td class="px-6 py-4 text-slate-500 text-sm"><?= $book['author'] ?></td>
+                            <td class="px-6 py-4 text-slate-500 text-sm"><?= $book['borrowDate'] ?></td>
+                            <? if ($book['returnDate'] !== null): ?>
+                            <td class="px-6 py-4 text-emerald-600 text-sm font-semibold"><?= $book['returnDate'] ?></td>
+                            <? else: ?>
+                            <td class="px-6 py-4 text-amber-600 text-sm font-semibold">Not returned yet</td>
+                            <? endif; ?>
                         </tr>
-                        <tr class="hover:bg-slate-50/50 transition">
-                            <td class="px-6 py-4 font-bold text-slate-700">Le Meilleur des Mondes</td>
-                            <td class="px-6 py-4 text-slate-500 text-sm">Aldous Huxley</td>
-                            <td class="px-6 py-4 text-slate-500 text-sm">01 Sept. 2024</td>
-                            <td class="px-6 py-4 text-emerald-600 text-sm font-semibold">15 Sept. 2024</td>
-                            <td class="px-6 py-4 text-center">⭐⭐⭐⭐</td>
-                        </tr>
+                        <? endforeach; ?>
                     </tbody>
                 </table>
             </div>
