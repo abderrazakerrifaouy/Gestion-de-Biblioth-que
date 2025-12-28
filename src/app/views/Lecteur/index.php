@@ -121,6 +121,7 @@
                     </div>
                 </div>
 
+                <? if (isset($books[0])): ?>
                 <div class="bg-white p-6 rounded-3xl border border-slate-200">
                     <h3 class="font-bold text-slate-900 mb-4">Recommended for You</h3>
                     <div class="space-y-4">
@@ -146,6 +147,7 @@
                     </form>
                     <?php endif; ?>
                 </div>
+                <?php endif; ?>
             </div>
 
         </div>

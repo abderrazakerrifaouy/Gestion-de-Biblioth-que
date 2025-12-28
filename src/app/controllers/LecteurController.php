@@ -51,9 +51,6 @@ class LecteurController implements controllers
     exit;
 }
 
-    /* =====================================================
-       METHOD GENERAL : BORROWS BY USER
-    ===================================================== */
     private function fetchBorrowsByUser(string $sql, bool $single = false)
     {
         $id_user = $_SESSION['user']->id;
@@ -66,9 +63,6 @@ class LecteurController implements controllers
             : $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    /* =====================================================
-       COUNT BORROWED BOOKS
-    ===================================================== */
     public function getContBooks()
     {
         $sql = "SELECT COUNT(*) AS total FROM borrows WHERE readerId = :id";
@@ -76,9 +70,6 @@ class LecteurController implements controllers
         return $result['total'];
     }
 
-    /* =====================================================
-       BOOKS WITH DAYS LEFT
-    ===================================================== */
     public function getDaysBooks()
     {
         $sql =
@@ -99,9 +90,6 @@ class LecteurController implements controllers
         return $this->fetchBorrowsByUser($sql);
     }
 
-    /* =====================================================
-       BORROW HISTORY
-    ===================================================== */
     public function getHistories()
     {
         $sql = "
@@ -138,9 +126,7 @@ class LecteurController implements controllers
     }
 
 
-    /* =====================================================
-       ALL BOOKS
-    ===================================================== */
+  
     public function getAllBooks()
     {
         $query = $this->connection->prepare("SELECT * FROM books");
@@ -163,9 +149,6 @@ class LecteurController implements controllers
         return $books;
     }
 
-    /* =====================================================
-       HOME PAGE
-    ===================================================== */
     public function index()
     {
 
@@ -177,9 +160,6 @@ class LecteurController implements controllers
         ]);
     }
 
-    /* =====================================================
-       MY BORROWS PAGE
-    ===================================================== */
     public function my_borrows()
     {
         Helper::view("Lecteur/my_borrows", [
@@ -188,10 +168,6 @@ class LecteurController implements controllers
             "history" => $this->getHistories()
         ]);
     }
-
-    /* =====================================================
-       create BORROWS PAGE
-    ===================================================== */
 
     public function create_borrows()
     {
@@ -207,9 +183,6 @@ class LecteurController implements controllers
     }
 
 
-    /* =====================================================
-       EXPLORE BOOKS
-    ===================================================== */
     public function explore()
     {
         Helper::view("Lecteur/explore", [
@@ -217,9 +190,6 @@ class LecteurController implements controllers
         ]);
     }
 
-    /* =====================================================
-       LOGOUT
-    ===================================================== */
     public function logoutextes()
     {
         session_destroy();
